@@ -61,7 +61,11 @@ jobs:
 
       - name: Set IMAGE_TAG environment variable
         run: echo "IMAGE_TAG=${{ github.run_id }}" >> $GITHUB_ENV
-
+        
       - name: Deploy app
         run: |
-          aws lambda update-function-code --function-name hello_world_function --image-uri ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/hello_world_repository:${{ github.run_id }} --environment "IMAGE_TAG=${{ env.IMAGE_TAG }}"
+          # Atualiza as variáveis de ambiente, incluindo a IMAGE_TAG
+          aws lambda update-function-configuration --function-name hello_world_function --environment "Variables={IMAGE_TAG=${{ env.IMAGE_TAG }}}"
+      
+          # Faz o deploy da nova imagem do ECR para a função Lambda
+          aws lambda update-function-code --function-name hello_world_function --image-uri ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/hello_world_repository:${{ github.run_id }}
