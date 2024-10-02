@@ -52,13 +52,13 @@ jobs:
         env:
           AWS_REGION: us-east-1
         run: |
-          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin aws_account_id.dkr.ecr.$AWS_REGION.amazonaws.com
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin 654654632496.dkr.ecr.$AWS_REGION.amazonaws.com
 
       - name: Tag and Push Docker image to ECR
         run: |
-          docker tag my-lambda-app:${{ github.run_id }} aws_account_id.dkr.ecr.${{ env.AWS_REGION }}/my-lambda-app:${{ github.run_id }}
-          docker push aws_account_id.dkr.ecr.${{ env.AWS_REGION }}/my-lambda-app:${{ github.run_id }}
+          docker tag my-lambda-app:${{ github.run_id }} 654654632496.dkr.ecr.${{ env.AWS_REGION }}/my-lambda-app:${{ github.run_id }}
+          docker push 654654632496.dkr.ecr.${{ env.AWS_REGION }}/my-lambda-app:${{ github.run_id }}
 
       - name: Set Docker image URL as output
         run: |
-          echo "image=aws_account_id.dkr.ecr.${{ env.AWS_REGION }}/my-lambda-app:${{ github.run_id }}" >> $GITHUB_OUTPUT
+          echo "image=654654632496.dkr.ecr.${{ env.AWS_REGION }}/my-lambda-app:${{ github.run_id }}" >> $GITHUB_OUTPUT
