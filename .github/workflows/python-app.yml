@@ -66,6 +66,8 @@ jobs:
         run: |
           # Atualiza as variáveis de ambiente, incluindo a IMAGE_TAG
           aws lambda update-function-configuration --function-name hello_world_function --environment "Variables={IMAGE_TAG=${{ env.IMAGE_TAG }}}"
-      
+
+          sleep 30
+          
           # Faz o deploy da nova imagem do ECR para a função Lambda
           aws lambda update-function-code --function-name hello_world_function --image-uri ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/hello_world_repository:${{ github.run_id }}
