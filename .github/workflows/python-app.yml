@@ -41,8 +41,8 @@ jobs:
           aws-region: us-east-1
 
       - name: Build Docker image
-        run: |
-          docker build -t ${{ env.REPO_NAME }}:${{ github.run_id }} application/
+        run: |          
+          docker build -t hello_world_repository application/
 
       - name: Login to AWS ECR
         env:
@@ -51,8 +51,8 @@ jobs:
           aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.$AWS_REGION.amazonaws.com
 
       - name: Tag and Push Docker image to ECR
-        run: |
-          docker tag ${{ env.REPO_NAME }}:${{ github.run_id }} ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.REPO_NAME }}:${{ github.run_id }}              
+        run: |          
+          docker tag hello_world_repository:${{ github.run_id }} ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.REPO_NAME }}:${{ github.run_id }}              
           docker push ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.REPO_NAME }}:${{ github.run_id }}
 
       - name: Set Docker image URL as output
