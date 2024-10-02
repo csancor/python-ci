@@ -53,7 +53,9 @@ jobs:
       - name: Tag and Push Docker image to ECR
         run: |          
           docker tag hello_world_repository:latest 590183754856.dkr.ecr.us-east-1.amazonaws.com/hello_world_repository:${{ github.run_id }}          
-          docker push 590183754856.dkr.ecr.us-east-1.amazonaws.com/hello_world_repository:${{ github.run_id }}         
+          docker tag hello_world_repository:latest 590183754856.dkr.ecr.us-east-1.amazonaws.com/hello_world_repository:latest
+          # docker push 590183754856.dkr.ecr.us-east-1.amazonaws.com/hello_world_repository:${{ github.run_id }}         
+          docker push 590183754856.dkr.ecr.us-east-1.amazonaws.com/hello_world_repository
 
       - name: Set Docker image URL as output
         run: |
@@ -65,7 +67,7 @@ jobs:
       - name: Deploy app
         run: |
           # Atualiza as variáveis de ambiente, incluindo a IMAGE_TAG
-          aws lambda update-function-configuration --function-name hello_world_function --environment "Variables={IMAGE_TAG=${{ env.IMAGE_TAG }}}"
+          # aws lambda update-function-configuration --function-name hello_world_function --environment "Variables={IMAGE_TAG=${{ env.IMAGE_TAG }}}"
 
           sleep 30
           
