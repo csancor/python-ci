@@ -62,3 +62,8 @@ jobs:
       - name: Set Docker image URL as output
         run: |
           echo "image=654654632496.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/hello_world_repository:${{ github.run_id }}" >> $GITHUB_OUTPUT
+
+      - name: Set IMAGE_TAG environment variable
+        run: echo "IMAGE_TAG=${{ github.run_id }}" >> $GITHUB_ENV
+
+      
