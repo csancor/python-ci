@@ -52,16 +52,16 @@ jobs:
 
       - name: Tag and Push Docker image to ECR
         run: |          
-          docker tag hello_world_repository:${{ github.run_id }} ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.REPO_NAME }}:${{ github.run_id }}              
-          docker push ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.REPO_NAME }}:${{ github.run_id }}
+          docker tag hello_world_repository:${{ github.run_id }} ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/hello_world_repository:${{ github.run_id }}              
+          docker push ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/hello_world_repository:${{ github.run_id }}
 
       - name: Set Docker image URL as output
         run: |
-          echo "image=${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.REPO_NAME }}:${{ github.run_id }}" >> $GITHUB_OUTPUT
+          echo "image=${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/hello_world_repository:${{ github.run_id }}" >> $GITHUB_OUTPUT
 
       - name: Set IMAGE_TAG environment variable
         run: echo "IMAGE_TAG=${{ github.run_id }}" >> $GITHUB_ENV
 
       - name: Deploy app
         run: |
-          aws lambda update-function-code --function-name ${{ secrets.FUNCTION_NAME }} --image-uri ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.REPO_NAME }}:${{ github.run_id }} --environment "Variables={IMAGE_TAG=${{ env.IMAGE_TAG }}}"
+          aws lambda update-function-code --function-name ${{ secrets.FUNCTION_NAME }} --image-uri ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/hello_world_repository:${{ github.run_id }} --environment "Variables={IMAGE_TAG=${{ env.IMAGE_TAG }}}"
