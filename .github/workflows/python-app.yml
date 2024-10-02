@@ -52,8 +52,8 @@ jobs:
 
       - name: Tag and Push Docker image to ECR
         run: |          
-          docker tag hello_world_repository:${{ github.run_id }} ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/hello_world_repository:${{ github.run_id }}              
-          docker push ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/hello_world_repository:${{ github.run_id }}
+          docker tag hello_world_repository:latest 590183754856.dkr.ecr.us-east-1.amazonaws.com/hello_world_repository:${{ github.run_id }}          
+          docker push 590183754856.dkr.ecr.us-east-1.amazonaws.com/hello_world_repository:${{ github.run_id }}         
 
       - name: Set Docker image URL as output
         run: |
