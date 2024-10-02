@@ -64,4 +64,4 @@ jobs:
 
       - name: Deploy app
         run: |
-          aws lambda update-function-code --function-name ${{ secrets.FUNCTION_NAME }} --image-uri ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/hello_world_repository:${{ github.run_id }} --environment "Variables={IMAGE_TAG=${{ env.IMAGE_TAG }}}"
+          aws lambda update-function-code --function-name hello_world_function --image-uri ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/hello_world_repository:${{ github.run_id }} --environment "Variables={IMAGE_TAG=${{ env.IMAGE_TAG }}}"
